@@ -14,15 +14,31 @@ curl -o python-3.10.0.exe https://www.python.org/ftp/python/3.10.0/python-3.10.0
 echo Install Python 3.10...
 start /wait python-3.10.0.exe 
 
-REM Vérifie l'installation de Python
+echo Restart Computer for complete Python Installation ? (O/N)
+set /p choice=
+if /i "%choice%"=="O" (
+    shutdown /r /t 0
+) else (
+    echo Restart Canceled.
+)
+
+pause
+
 python --version
 
-REM Nettoie le fichier d'installation
 del python-3.10.0.exe
 
-REM Exécute le fichier Python
+
 echo Install Dependencies
 powershell -Command "Start-Process 'python' -ArgumentList 'setup.py' -Verb RunAs -Wait"
+
+echo Restart Computer for complete Installation ? (O/N)
+set /p choice=
+if /i "%choice%"=="O" (
+    shutdown /r /t 0
+) else (
+    echo Restart Canceled.
+)
 
 echo Installation Succesful !
 python UI.py
