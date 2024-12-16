@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import filedialog
 from pydub import AudioSegment
 import shutil
+import ctypes
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("icon.ico")
 
 root = tk.Tk() 
 root.iconbitmap("Icon.ico")
