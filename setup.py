@@ -50,13 +50,13 @@ def install_cuda_toolkit(installer_path):
         print("CUDA Toolkit installation started.")
     else:
         print("The installation file does not exist.")
-
+print("Install TTS...")
 try:
     import TTS
     print('TTS already installed')
 except ImportError:
     os.system('pip install coqui-tts')
-
+print("Install Pydub...")
 try:
     import pydub
     print('pydub already installed')
