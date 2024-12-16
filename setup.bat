@@ -14,7 +14,7 @@ del python-3.10.0.exe
 
 REM Exécute le fichier Python
 echo Install Dependencies
-powershell -Command "Start-Process 'python' -ArgumentList 'setup.py' -Verb RunAs"
+powershell -Command "Start-Process 'python' -ArgumentList 'setup.py' -Verb RunAs -Wait"
 
 echo Installation Succesful !
 UI.py
