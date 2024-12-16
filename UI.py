@@ -37,14 +37,14 @@ def open_settings():
     speaker_path_entry = tk.Entry(settings_window, width=50)
     speaker_path_entry.grid(row=1, column=1, padx=10, pady=5)
     speaker_path_entry.insert(0, config['Path']['speaker_path'])
-    browse_speaker_button = tk.Button(settings_window, text="Parcourir", command=browse_speaker_path)
+    browse_speaker_button = tk.Button(settings_window, text="Browse", command=browse_speaker_path)
     browse_speaker_button.grid(row=1, column=2, padx=10, pady=5)
 
     tk.Label(settings_window, text="Output Path:").grid(row=2, column=0, padx=10, pady=5)
     output_entry = tk.Entry(settings_window, width=50)
     output_entry.grid(row=2, column=1, padx=10, pady=5)
     output_entry.insert(0, config['Path']['output'])
-    browse_output_button = tk.Button(settings_window, text="Parcourir", command=browse_output_path)
+    browse_output_button = tk.Button(settings_window, text="Browse", command=browse_output_path)
     browse_output_button.grid(row=2, column=2, padx=10, pady=5)
 
     tk.Label(settings_window, text="Default Speaker:").grid(row=3, column=0, padx=10, pady=5)
