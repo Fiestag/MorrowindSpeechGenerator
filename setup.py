@@ -80,10 +80,10 @@ print(f'CUDA installed: {Cuda_test}')
 if not Cuda_test:
     import subprocess
     try:
-        # Exécute la commande nvidia-smi
+       
         result = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
-        # Vérifie si la commande a réussi
+      
         if result.returncode == 0:
             print("NVIDIA GPU detected")
             os.system('pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118')
