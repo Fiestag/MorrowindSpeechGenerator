@@ -1,5 +1,6 @@
 import os
 import zipfile
+print("Don't close Window!")
 
 try:
     import requests
@@ -14,6 +15,7 @@ def install_ffmpeg():
     zip_path = "ffmpeg.zip"
     os.system(f"curl -L {url} -o {zip_path}")
     os.system("pip install ffmpeg")
+    print("Install ffmpeg")
 
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall()
@@ -51,20 +53,24 @@ def install_cuda_toolkit(installer_path):
 
 try:
     import TTS
+    print('TTS already installed')
 except ImportError:
     os.system('pip install coqui-tts')
 
 try:
     import pydub
+    print('pydub already installed')
 except ImportError:
     os.system('pip install pydub')
 
 try:
     import pandas
+    print('pandas already installed')
 except ImportError:
     os.system('pip install pandas')
 try:
     import ffmpeg
+    print('ffmpeg already installed')
 except ImportError:
     install_ffmpeg()
 
