@@ -5,7 +5,7 @@ import configparser
 import subprocess
 import ctypes
 
-# Définir l'icône de l'application 
+ 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("icon.ico")
 
 def open_settings():
