@@ -3,7 +3,7 @@
 This mod uses the XTTS AI model developed by Coqui.ai to create speech for any ESP/ESM files that work with Morrowind.
 # Installation
 
-Extract Morrowind Speech Generator and launch setup.exe  
+Extract Morrowind Speech Generator and launch setup.bat (Don't close window!)
 This app needs approximately 6.6 GB to install all dependencies.(Python 3.10, XTTS model and CUDA toolkit)  
 Hightly recommendend to use NVIDIA GPU for generate speech.  
 Launch Morrowind Speech Generator to open the app.  
