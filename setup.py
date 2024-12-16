@@ -1,6 +1,6 @@
 import os
 import zipfile
-print("Don't close Window!")
+print("Don't close Window!...")
 
 try:
     import requests
