@@ -11,6 +11,7 @@ python --version
 
 echo Install Dependencies...
 powershell -Command "Start-Process 'python' -ArgumentList 'setup.py' -Verb RunAs -Wait"
+pause
 
 echo Restart Computer for complete Installation ? (O/N)
 set /p choice=
