@@ -21,16 +21,16 @@ Extract NPC dialogue from ESP/ESM files to CSV in CSV folder in app folder.
 
 # Extract Audio
 
-Extract audio files from your Morrowind Data Files folder to create samples used for speech generation. 
-Set the generate folder as speakers path to use your game's default voices
-Choose the Data Files folder in your game folder.
+Extract audio files from your Morrowind Data Files folder to create samples used for speech generation.  
+Set the generate folder as speakers path to use your game's default voices  
+Choose the Data Files folder in your game folder.  
 
 # Speech Generator
 
 Generate speech for any NPC dialogue from your ESP/ESM files.  
-Uses the speakers_path folder defined in the options for generation according to the Race/sex_initial model
-(For example for Redguard female: “SpeakersFolder/Redguard/f”)
-These files are contained in the Output folder set by the user and require Kezyma Voices of Vvardenfell to play in-game.
+Uses the speakers_path folder defined in the options for generation according to the Race/sex_initial model  
+(For example for Redguard female: “SpeakersFolder/Redguard/f”)  
+These files are contained in the Output folder set by the user and require Kezyma Voices of Vvardenfell to play in-game.  
 
 # Credits
 
