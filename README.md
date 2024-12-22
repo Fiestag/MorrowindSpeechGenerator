@@ -30,7 +30,8 @@ Choose the Data Files folder in your game folder.
 Generate speech for any NPC dialogue from your ESP/ESM files.  
 Uses the speakers_path folder defined in the options for generation according to the Race/sex_initial model  
 (For example for Redguard female: “SpeakersFolder/Redguard/f”)  
-These files are contained in the Output folder set by the user and require Kezyma Voices of Vvardenfell to play in-game.  
+These files are contained in the Output folder set by the user and require Kezyma Voices of Vvardenfell to play in-game
+Add the folders contained in the output path to your game's (Data Files/Sound/Vo/AIV") folder.
 
 # Credits
 
