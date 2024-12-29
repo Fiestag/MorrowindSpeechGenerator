@@ -1,27 +1,39 @@
 import os
 import time
 import configparser
+print("Load TTS...")
 from TTS.api import TTS
 import pandas as pd
 import glob
 import tkinter as tk
-from tkinter import filedialog
-import tkinter
+from tkinter import filedialog, messagebox
 from pydub import AudioSegment
 import ffmpeg
 import torch
 test_cuda = torch.cuda.is_available()
-if test_cuda == True:
-    processor ="cuda"
-else :
-    processor = "cpu"
 root = tk.Tk() 
 root.iconbitmap("Icon.ico")
 root.geometry("400x300")
 root.withdraw()
-        
+
 config = configparser.ConfigParser()
 config.read("config.ini")
+
+
+
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+
+if test_cuda == True:
+    processor ="cuda"    
+else :
+    processor = "cpu"
+    window = tk.Tk()
+    window.withdraw()  
+
+    messagebox.showinfo("CUDA is not loaded", "CUDA is not loaded, the GPU will not be used for generating. This will have a major impact on generation time.(CUDA is only compatible with NVIDIA GPU)")
+
+    window.destroy()
 
 csv_path = filedialog.askopenfilename(title="Choice csv Dialogue File", filetypes=(("Csv Files", "*.csv"),))
 csv_data = pd.read_csv(csv_path)
@@ -38,6 +50,8 @@ undefined_Total_lines = (race_number * 2) * undefined_text_number
 TotalIdCount = undefined_Total_lines + non_empty_lines_number
 start_time = time.time()
 default_speaker = config.get("Path", "speaker_default")
+tts = TTS(model_name="tts_models/multilingual/multi-dataset/xtts_v2")
+tts.to(processor)
 
 def racefunction(race):
     def gndr(gender):
@@ -45,6 +59,7 @@ def racefunction(race):
         global TotalIdCount
         global start_time
         global default_speaker
+        global tts
 
         
         gndr_path = "f" if gender == "female" else "m"
@@ -54,8 +69,6 @@ def racefunction(race):
             ((csv_data['sex'] == gender) | (csv_data['sex'].isna()))
         ]
 
-        tts = TTS(model_name="tts_models/multilingual/multi-dataset/xtts_v2")
-        tts.to(processor)
         speaker_path = config.get("Path", "speaker_path").strip('"')
         
 
@@ -81,22 +94,18 @@ def racefunction(race):
             text = row['text']
             if not isinstance(text, str):
                 continue
-            length = len(text)
-            print(f"text length={length}")
-            split = len(text) >= 250
-            print(f"split ={split}")
+            split = len(text) >= 180
             speaker_change = False
-
             info_id = row['id']
+            
+
             speaker_id = row['speaker_id']
             output_creature_path = f"{output}\\Creature\\{speaker_id}"
             if speaker_id in ['dagoth_ur_1', 'dagoth_ur_2']: speaker_id = 'dagoth_ur'
             if speaker_id in ['dagoth araynys', 'dagoth baler', 'dagoth delnus', 'dagoth elam', 'dagoth endus', 
             'dagoth fervas', 'dagoth gares', 'dagoth gilvoth', 'dagoth girer', 'dagoth odros',
-             'dagoth ralas', 'dagoth reler', 'dagoth tureynul', 'dagoth ulen', 'dagoth uthol', 'dagoth uvil', 'dagoth vemyn']: speaker_id = 'dagoths'
+            'dagoth ralas', 'dagoth reler', 'dagoth tureynul', 'dagoth ulen', 'dagoth uthol', 'dagoth uvil', 'dagoth vemyn']: speaker_id = 'dagoths'
             
-
-        
             if pd.isna(row['race']) and not pd.isna(row['speaker_id']):
                 output_file = os.path.join(output_creature_path, f"{info_id}.wav")
                 output_file_mp3 = os.path.join(output_creature_path, f"{info_id}.mp3")
@@ -115,12 +124,12 @@ def racefunction(race):
                 output_file = os.path.join(output_base_path, f"{info_id}.wav")
                 output_file_mp3 = os.path.join(output_mp3_path, f"{info_id}.mp3")
 
-            
-            os.makedirs(os.path.dirname(output_file), exist_ok=True)
-            os.makedirs(os.path.dirname(output_file_mp3), exist_ok=True)
-
-            Speaker_language = config.get("Language", "Speaker_language").strip('"')
             if not os.path.exists(output_file_mp3):
+                os.makedirs(os.path.dirname(output_file), exist_ok=True)
+                os.makedirs(os.path.dirname(output_file_mp3), exist_ok=True)
+
+                Speaker_language = config.get("Language", "Speaker_language").strip('"')
+                
                 print(f"Dialog text : ['{text}']")
 
                 tts.tts_to_file(text=text, speaker_wav=speaker_wav_paths, language=Speaker_language, file_path=output_file, split_sentences=split)
@@ -132,23 +141,21 @@ def racefunction(race):
             if not os.path.exists(output_file_mp3):
                 sound = AudioSegment.from_wav(output_file)
                 sound.export(output_file_mp3, format="mp3", bitrate="64k", parameters=["-ac", "1", "-ar", "44100", "-sample_fmt", "s16"])
-                print(f"Output file:'{output_file_mp3}'")
-                print(f"Treated lines/Total lines: {treatedIdCount}/{TotalIdCount}")
+                print(f"Output file:['{output_file_mp3}']")
+                print(f"Generated Files / Total Files: {treatedIdCount}/{TotalIdCount}")
                 elapsed_time = time.time() - start_time
                 program_time = (elapsed_time / treatedIdCount) * (TotalIdCount - treatedIdCount)
-                formatted_time = time.gmtime(program_time)
-                end_time = time.strftime("%H:%M:%S", formatted_time)
-                print(f"Remaining time: {end_time}")
+                hours, remainder = divmod(program_time, 3600) 
+                minutes, seconds = divmod(remainder, 60)
+                prRed(f"Remaining time: {int(hours):03}:{int(minutes):02}:{int(seconds):02}")
             
             
             if  speaker_change == True :
                 speaker_wav_paths = glob.glob(speaker_wav_path_pattern)
             if os.path.exists(output_file) :
                 os.remove(output_file)
-                
+            prGreen("---------------------------------------------------------------------------------------------")
 
-
-            
 
     genders = csv_data['sex'].dropna().unique()
     for gender in genders:
