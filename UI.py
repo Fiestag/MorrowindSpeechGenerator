@@ -5,7 +5,6 @@ import configparser
 import subprocess
 import ctypes
 
- 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("icon.ico")
 
 def open_settings():
@@ -73,6 +72,12 @@ def run_extractor():
 def run_extractaudio():
     subprocess.call(["python", "extractaudio.py"])
 
+def open_readme():
+    if os.path.isfile("README.md"):
+        os.system("notepad README.md")
+    else:
+        tk.messagebox.showerror("Error", "README.md file not found")
+
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -105,5 +110,8 @@ extractaudio_button.pack(pady=10)
 
 run_button = tk.Button(root, text="Launch Speech Generation", command=run_script)
 run_button.pack(pady=10)
+
+help_button = tk.Button(root, text="Help", command=open_readme)
+help_button.pack(pady=10)
 
 root.mainloop()
