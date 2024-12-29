@@ -14,7 +14,8 @@ Speaker Path: Location of the audio files used for audio generation.
 Output Path: Location where the generated speech is saved.  
 Default Speaker: Default speaker files used for NPCs without a specified race.  
 Speaker Language: Language used for speech.  
-Click to save button for save settings.
+Click to save button for save settings.  
+
 # Dialogue Extractor
 
 Extract NPC dialogue from ESP/ESM files to CSV in CSV folder in app folder.  
