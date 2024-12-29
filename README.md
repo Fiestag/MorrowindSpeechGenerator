@@ -38,4 +38,5 @@ Add the folders contained in the output path to your game's (Data Files/Sound/Vo
 
 Thanks to Greatness7 for creates Tes3conv used for convert ESP/ESM files.  
 Thanks to coqui AI for XTTS model.  
-Thank to Kezyma  for Voices of VVardenfell.  
+Thanks to Kezyma  for Voices of VVardenfell.  
+Thanks to S-T-K for his comments and his contribution to script for load the npc of the master file. 
