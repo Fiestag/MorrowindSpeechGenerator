@@ -4,6 +4,7 @@ from tkinter import filedialog
 from pydub import AudioSegment
 import shutil
 import ctypes
+import configparser
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("icon.ico")
 
 root = tk.Tk() 
@@ -23,7 +24,7 @@ def convert_audio_files(morrowind_path, output_path):
         print(f"Path {audio_morrowind_path} doesn't exist")
         return
     
-    # Dictionnaire pour mapper les noms des dossiers source aux noms des dossiers de sortie
+    
     folder_mapping = {
         'a': 'Argonian',
         'b': 'Breton',
@@ -74,7 +75,7 @@ def convert_audio_files_misc(morrowind_path, output_path):
         print(f"Path {audio_morrowind_path} doesn't exist")
         return
     
-    # Dictionnaire pour mapper les noms des dossiers source aux noms des dossiers de sortie
+    
     folder_mapping = {
         'a': 'Argonian',
         'b': 'Breton',
@@ -108,7 +109,7 @@ def convert_audio_files_misc(morrowind_path, output_path):
                 if len(audio) < 4000:  
                     continue
                 
-                # Obtenir le dossier parent du dossier actuel
+                
                 parent_folder_name = os.path.basename(os.path.dirname(root))
                 output_folder_name = folder_mapping.get(parent_folder_name, parent_folder_name)
                 
@@ -142,11 +143,18 @@ def convert_audio_files_misc(morrowind_path, output_path):
 root = tk.Tk()
 root.withdraw()
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
 morrowind_path = select_morrowind_path()
 output_path = select_output_path()
+config['Path']['output'] = output_path
+with open('config.ini', 'w') as configfile:
+    config.write(configfile)
 
 print(f"Morrowind Path: {morrowind_path}")
 print(f"Output Path: {output_path}")
+
 
 convert_audio_files(morrowind_path, output_path)
 convert_audio_files_misc(morrowind_path, output_path)
