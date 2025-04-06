@@ -148,7 +148,7 @@ config.read("config.ini")
 
 morrowind_path = select_morrowind_path()
 output_path = select_output_path()
-config['Path']['output'] = output_path
+config['Path']['speaker_path'] = output_path
 with open('config.ini', 'w') as configfile:
     config.write(configfile)
 
