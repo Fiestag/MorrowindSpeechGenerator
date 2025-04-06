@@ -82,6 +82,13 @@ def racefunction(race):
             print(f"Load Default Wav Files: {speaker_wav_paths}")
 
         output = config.get("Path", "Output").strip('"')
+        if not os.path.exists(output):
+            root = tk.Tk()
+            root.withdraw()  # Cacher la fenêtre principale
+            output = filedialog.askdirectory(title="Choice Output Folder")
+            config['Path']['Output'] = output
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
         output_base_path = f"{output}\\{race}\\{gndr_path}"
         output_mp3_path = f"{output}\\{race}\\{gndr_path}"
 
