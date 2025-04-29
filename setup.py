@@ -1,6 +1,13 @@
 import os
 import zipfile
+import shutil
 print("Don't close Window!...")
+
+if not os.path.exists('config.ini'):
+    shutil.copy('config.example.ini', 'config.ini')
+    print('Initialization of the config file.')
+else:
+    print('The config file already exists.')
 
 try:
     import requests
