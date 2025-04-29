@@ -35,6 +35,9 @@ else :
 
     window.destroy()
 
+print(f"TTS Loaded")
+
+print(f"Choice a Dialogue File")
 csv_path = filedialog.askopenfilename(title="Choice csv Dialogue File", filetypes=(("Csv Files", "*.csv"),))
 csv_data = pd.read_csv(csv_path)
 treatedIdCount = 0
@@ -138,7 +141,9 @@ def racefunction(race):
                 Speaker_language = config.get("Language", "Speaker_language").strip('"')
                 
                 print(f"Dialog text : ['{text}']")
-
+                
+                if not isinstance(speaker_wav_paths, str):
+                    raise TypeError(f"Error: no wav files in folder:['{speaker_wav_path_pattern}']")
                 tts.tts_to_file(text=text, speaker_wav=speaker_wav_paths, language=Speaker_language, file_path=output_file, split_sentences=split)
                 treatedIdCount += 1
             else:
