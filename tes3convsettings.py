@@ -13,6 +13,28 @@ root.iconbitmap("icon.ico")
 loaded_files = {}  # Dictionary to store already loaded files
 complete_npc_info = {}  # Dictionary to store complete NPC information from all files
 
+fix_chars = { 
+  "¹": "ą",
+  "æ": "ć",
+  "Æ": "Ć",
+  "ê": "ę",
+  "³": "ł",
+  "£": "Ł",
+  "ñ": "ń",
+  "œ": "ś",
+  "Œ": "Ś",
+  "¿": "ż",
+  "¯": "Ż",
+  "Ÿ": "ź",
+  "": "Ź"
+}
+
+def fix_wrong_encoding(text):
+    for wrongChar, correctChar in fix_chars.items():
+        text = text.replace(wrongChar, correctChar)
+    return text
+
+
 def load_file(file_path):
     """Loads a file, converts it to JSON, and returns its data."""
     output_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -87,6 +109,11 @@ def retirer_chaines(text):
     text = re.sub(r'%\w+', '', text)
     # Remove content inside brackets
     text = re.sub(r'\[.*?\]', '', text)
+    text = re.sub(r'\(.*?\)', '', text)
+    text = re.sub(r'\<.*?\>', '', text)
+    re.sub(r'\s+([.,!?;:])', r'\1', text)
+    re.sub(r'\s+', '', text)
+    text = text.replace(', .', '.')
     return text
 
 # Open a CSV file to write dialogues with race and gender added
@@ -108,6 +135,7 @@ with open(f'csv/{output_name}.csv', 'w', newline='', encoding='utf-8') as csv_fi
             id_ = item.get('id', '')
             speaker_id = item.get('speaker_id', '')
             text = item.get('text', '').replace('\r\n', ' ')  # Replace \r\n with a space
+            text = fix_wrong_encoding(text)
             # Remove specific strings and content inside brackets from the text
             text = retirer_chaines(text).strip()
             race = complete_npc_info.get(speaker_id, {}).get('race', '').strip()
