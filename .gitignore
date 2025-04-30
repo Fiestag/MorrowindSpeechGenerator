@@ -1,0 +1,9 @@
+# Dependeces
+ffmpeg-*
+*.exe
+
+# Generated files
+csv/*
+
+# Config file
+config.ini
