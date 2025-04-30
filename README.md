@@ -40,3 +40,4 @@ Thanks to Greatness7 for creates Tes3conv used for convert ESP/ESM files.
 Thanks to coqui AI for XTTS model.  
 Thanks to Kezyma  for Voices of VVardenfell.  
 Thanks to S-T-K for his comments and his contribution to script for load the npc of the master file. 
+Thanks to Wa2a for fix Polish characters encoding.
