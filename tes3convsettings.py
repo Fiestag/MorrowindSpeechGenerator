@@ -55,26 +55,31 @@ def load_file(file_path):
     # Remove the JSON file after loading its contents
     os.remove(f'{output_name}.json')
     return data
+# A global structure to keep track of masters that have already been requested
+loaded_masters = set()
+
 def process_masters(data):
     """Recursively load master files specified in the JSON data."""
     for item in data:
         if item["type"] == "Header" and "masters" in item:
             for master, _ in item["masters"]:
-                if master not in loaded_files.values():
-                    # Check if master file is already loaded
-                    for path, content in loaded_files.items():
-                        if os.path.basename(path) == master:
-                            break
-                    else:
-                        # Prompt the user to locate the master file
-                        master_file_path = filedialog.askopenfilename(
-                            title=f"Locate master file: {master}",
-                            filetypes=(("Esm/Esp Files", "*.esp *.esm"),)
-                        )
-                        if master_file_path:
-                            # Load the master file and process its masters
-                            master_data = load_file(master_file_path)
-                            process_masters(master_data)
+                # If this master has already been loaded, skip to the next one
+                if master in loaded_masters:
+                    continue
+
+                # Otherwise, prompt the user to locate the master file
+                master_file_path = filedialog.askopenfilename(
+                    title=f"Locate master file: {master}",
+                    filetypes=(("Esm/Esp Files", "*.esp *.esm"),)
+                )
+                if master_file_path:
+                    # Remember the master file to avoid asking for it again
+                    loaded_masters.add(master)
+                    # Load the master file's data (make sure you have defined the load_file function)
+                    master_data = load_file(master_file_path)
+                    # Recursively process the masters found in this file
+                    process_masters(master_data)
+
 def collect_npc_info(data):
     """Collect NPC information from the given data."""
     for item in data:
