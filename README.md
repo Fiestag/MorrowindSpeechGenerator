@@ -1,43 +1,27 @@
-# MorrowindSpeechGenerator
-
 This mod uses the XTTS AI model developed by Coqui.ai to create speech for any ESP/ESM files that work with Morrowind.
 # Installation
+************* This app needs approximately 10 GB to install all dependencies (Python 3.10, XTTS model and CUDA toolkit)    *************
 
-1.  Extract Morrowind Speech Generator and launch SetupPython.bat (Don't close window!) and restart computer.
-2.  Launch after Install Python launch setup.bat and restart computer.
-3.  This app needs approximately 10 Go to install all dependencies.(Python 3.10, XTTS model and CUDA toolkit)  
-4.  Hightly recommendend to use NVIDIA GPU for generate speech.  
-5.  Launch Morrowind Speech Generator to open the app.  
+1.  Extract Morrowind Speech Generator and launch 'SetupPython.bat' (Don't close window!). Once it's complete, it will prompt you to restart your computer. Type in 'o' for yes. 
+2.  Once you've restarted, go back into the same folder and launch 'setup.bat'. Once that is complete, it will once again prompt you to restart your computer. Type in 'o' for yes.
+3.  Once installation is complete, launch 'MorrowindSpeechGenerator.bat' to open the app.
 
-# Settings
-Speaker Path: Location of the audio files used for audio generation.  
-Output Path: Location where the generated speech is saved.  
-Default Speaker: Default speaker files used for NPCs without a specified race.  
-Speaker Language: Language used for speech.  
-Click to save button for save settings.  
+# Usage
+************* It is highly recommended to use NVIDIA GPU for generating speech; it will speed up the process considerably. *************
 
-# Dialogue Extractor
+1.  Open 'Settings'.
+1a.  The top directory shown is the Speaker Path. This is where the program will draw audio from. Set it to your audio directory of choice (Example:\Morrowind\Data Files\Sound\Vo).
+1b.  The second directory is the Output Path, and as it sounds, this is where the program will save the created audio files. Set this to wherever you like.
+2.  Exit settings and run 'Dialogue Extractor' from the main menu. This will extract the dialogue script. Point it to the ESM file you want to export a dialogue script from. (Example:\Morrowind\Data Files\Morrowind.esm)
+3.  Run 'Extract Audio' from the main menu. This will convert the mp3 audio files in your Vo folder into wav files needed for speech generation.
+4.  Run 'Launch Speech Generation' from the main menu. In the new window, point it to where the extracted script is located (Program location\csv). This process will take time.
+5.  Once that is complete, take the contents of your output folder, and copy/paste them into the proper audio folder (Morrowind\Data Files\Sound\Vo\AIV)
 
-Extract NPC dialogue from ESP/ESM files to CSV in CSV folder in app folder.  
-
-# Extract Audio
-
-Extract audio files from your Morrowind Data Files folder to create samples used for speech generation.  
-Set the generate folder as speakers path to use your game's default voices  
-Choose the Data Files folder in your game folder.  
-
-# Speech Generator
-
-Generate speech for any NPC dialogue from your ESP/ESM files.  
-Uses the speakers_path folder defined in the options for generation according to the Race/sex_initial model  
-(For example for Redguard female: “SpeakersFolder/Redguard/f”)  
-These files are contained in the Output folder set by the user and require Kezyma Voices of Vvardenfell to play in-game
-Add the folders contained in the output path to your game's (Data Files/Sound/Vo/AIV") folder.
 
 # Credits
 
 Thanks to Greatness7 for creates Tes3conv used for convert ESP/ESM files.  
 Thanks to coqui AI for XTTS model.  
-Thanks to Kezyma  for Voices of VVardenfell.  
+Thanks to Kezyma  for Voices of Vvardenfell.  
 Thanks to S-T-K for his comments and his contribution to script for load the npc of the master file. 
 Thanks to Wa2a for fix Polish characters encoding.
